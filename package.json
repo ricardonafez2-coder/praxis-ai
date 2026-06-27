@@ -7,7 +7,8 @@
     "build": "next build --webpack",
     "build:netlify": "npm run build && node -e \"require('fs').writeFileSync('.next/server/middleware.js', 'exports.middleware=()=>{};')\"",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@elevenlabs/client": "^1.14.0",
@@ -26,6 +27,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "patch-package": "^8.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
