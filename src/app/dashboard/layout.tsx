@@ -54,7 +54,7 @@ export default function DashboardLayout({
       <aside className="w-64 bg-gray-900 border-r border-gray-800 flex flex-col">
         <div className="p-6 border-b border-gray-800">
           <div className="flex items-center gap-3">
-            <img src="/logo-praxis-6.jpg" alt="Praxis AI" className="h-8 w-auto" />
+            <img src="/logo-praxis.jpg" alt="Praxis AI" className="h-8 w-auto" />
           </div>
         </div>
 

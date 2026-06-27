@@ -70,7 +70,7 @@ export default function AlumnoIngresarPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="text-5xl mb-4">🎓</div>
+          <img src="/logo-praxis.jpg" alt="Praxis AI" className="w-16 h-auto mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-white">Acceso Alumno</h1>
           <p className="text-gray-500 mt-1">
             {isSignUp ? 'Crear cuenta de alumno' : 'Iniciar sesión'}

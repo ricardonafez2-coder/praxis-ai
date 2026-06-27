@@ -86,9 +86,7 @@ export default function StudentLoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
-            🎓
-          </div>
+          <img src="/logo-praxis.jpg" alt="Praxis AI" className="w-16 h-auto mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-white">Praxis AI</h1>
           <p className="text-gray-500 mt-1">
             {showForgot ? 'Recuperar contraseña' : isSignUp ? 'Registro de Alumno' : 'Acceso Alumnos'}

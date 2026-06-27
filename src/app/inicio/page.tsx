@@ -75,7 +75,7 @@ function Header() {
     <header className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-sm sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-8 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img src="/logo-praxis-6.jpg" alt="Praxis AI" className="h-8 w-auto" />
+          <img src="/logo-praxis.jpg" alt="Praxis AI" className="h-8 w-auto" />
         </div>
         <div className="flex items-center gap-4">
           <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center text-sm">

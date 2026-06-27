@@ -16,6 +16,23 @@ export const metadata: Metadata = {
   title: "Praxis AI - Pacientes Virtuales",
   description:
     "Plataforma de simulación clínica con pacientes virtuales impulsados por IA. Practica entrevistas psicológicas y médicas con agentes conversacionales realistas.",
+  icons: {
+    icon: "/logo-praxis.jpg",
+    apple: "/logo-praxis.jpg",
+  },
+  openGraph: {
+    title: "Praxis AI - Pacientes Virtuales",
+    description:
+      "Simulación clínica con IA para psicología, medicina, odontología y fisioterapia.",
+    images: ["/logo-praxis.jpg"],
+  },
+  twitter: {
+    card: "summary",
+    title: "Praxis AI - Pacientes Virtuales",
+    description:
+      "Simulación clínica con IA para psicología, medicina, odontología y fisioterapia.",
+    images: ["/logo-praxis.jpg"],
+  },
 };
 
 export default function RootLayout({
