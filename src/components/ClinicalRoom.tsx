@@ -51,6 +51,8 @@ export default function ClinicalRoom({
     handleStartSession();
   };
 
+  const isDeviceError = (session.error || connectionError || '').toLowerCase().includes('device');
+
   const isConnecting = session.status === 'connecting';
   const isConnected = session.status === 'connected';
   const hasError = session.status === 'error';
@@ -101,14 +103,30 @@ export default function ClinicalRoom({
           {hasError && (
             <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-8 max-w-md text-center">
               <div className="w-14 h-14 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                <svg className="w-7 h-7 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                </svg>
+                {isDeviceError ? (
+                  <svg className="w-7 h-7 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                  </svg>
+                ) : (
+                  <svg className="w-7 h-7 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
+                )}
               </div>
-              <h3 className="text-red-400 font-bold text-lg mb-2">Error de Conexión</h3>
-              <p className="text-red-300/70 text-sm mb-5">
+              <h3 className="text-red-400 font-bold text-lg mb-2">
+                {isDeviceError ? 'Sin acceso al micrófono' : 'Error de Conexión'}
+              </h3>
+              <p className="text-red-300/70 text-sm mb-2">
                 {session.error || connectionError || 'No se pudo conectar con el agente'}
               </p>
+              {isDeviceError && (
+                <div className="text-amber-300/80 text-xs mb-4 space-y-1">
+                  <p>• Verifica que tu dispositivo tenga micrófono</p>
+                  <p>• Asegúrate de dar permisos de micrófono al navegador</p>
+                  <p>• El sitio debe usar HTTPS (Netlify ya lo proporciona)</p>
+                  <p>• Si estás en iPhone/iPad, activa el micrófono en Safari</p>
+                </div>
+              )}
               <div className="flex gap-3 justify-center">
                 <button onClick={handleRetry} className="px-5 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg transition-colors font-medium text-sm">
                   Reintentar
@@ -129,6 +147,7 @@ export default function ClinicalRoom({
               isSpeaking={session.isAgentSpeaking}
               patientName={agent.name}
               scenario={showScenario ? agent.scenario : undefined}
+              avatarUrl={agent.avatarUrl}
             />
           )}
         </div>

@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://praxis-ia.netlify.app"),
   title: "Praxis AI - Pacientes Virtuales",
   description:
     "Plataforma de simulación clínica con pacientes virtuales impulsados por IA. Practica entrevistas psicológicas y médicas con agentes conversacionales realistas.",

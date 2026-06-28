@@ -12,6 +12,7 @@ interface PatientAvatarProps {
   isSpeaking: boolean;
   patientName: string;
   scenario?: string;
+  avatarUrl?: string;
 }
 
 export default function PatientAvatar({
@@ -21,6 +22,7 @@ export default function PatientAvatar({
   isSpeaking,
   patientName,
   scenario,
+  avatarUrl,
 }: PatientAvatarProps) {
   return (
     <div className="relative w-full max-w-[500px] mx-auto rounded-2xl overflow-hidden bg-gray-900 border border-gray-800 shadow-2xl shadow-black/50">
@@ -50,16 +52,29 @@ export default function PatientAvatar({
           </div>
         )}
 
+        {/* Patient Photo Background (visible when not connected or connecting) */}
+        {avatarUrl && (
+          <img
+            src={avatarUrl}
+            alt={patientName}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+              isConnected ? 'opacity-0' : 'opacity-100'
+            }`}
+          />
+        )}
+
         {/* Not Connected State */}
         {!isConnecting && !isConnected && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900">
-            <div className="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mb-3">
-              <svg className="w-10 h-10 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0" />
-              </svg>
-            </div>
-            <p className="text-gray-400 text-base">{patientName}</p>
-            <p className="text-gray-500 text-xs mt-1">Paciente virtual</p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            {!avatarUrl && (
+              <div className="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mb-3">
+                <svg className="w-10 h-10 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0" />
+                </svg>
+              </div>
+            )}
+            <p className={`text-base font-medium ${avatarUrl ? 'text-gray-200' : 'text-gray-400'}`}>{patientName}</p>
+            <p className={`text-xs mt-1 ${avatarUrl ? 'text-gray-300' : 'text-gray-500'}`}>Paciente virtual</p>
           </div>
         )}
 

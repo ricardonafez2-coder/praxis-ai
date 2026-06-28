@@ -52,19 +52,31 @@ export function useElevenLabs(options: UseElevenLabsOptions = {}): UseElevenLabs
 
       console.log('[ElevenLabs] Starting conversation via official SDK...');
 
+      // Check for microphone availability BEFORE starting session
+      let hasMicrophone = false;
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        stream.getTracks().forEach(track => track.stop()); // Release immediately
+        hasMicrophone = true;
+      } catch (micErr) {
+        console.warn('[ElevenLabs] Microphone not available:', micErr);
+      }
+
+      const useTextOnly = !hasMicrophone;
+
       const conversation = await Conversation.startSession({
         signedUrl,
-        textOnly: false, // Voice conversation with microphone
+        textOnly: useTextOnly, // Fallback to text-only if no mic
         connectionType: 'websocket',
         language: 'es',
         overrides: {
           conversation: {
-            textOnly: false,
+            textOnly: useTextOnly,
           },
         },
-        // Required: request mic access via the SDK
-        inputDeviceId: undefined, // Use default mic
-        useWakeLock: true, // Keep screen awake during call
+        // Only pass inputDeviceId if microphone is available
+        ...(hasMicrophone ? { inputDeviceId: undefined } : {}),
+        useWakeLock: hasMicrophone, // Only keep screen awake for voice calls
         onConnect: ({ conversationId: convId }) => {
           console.log('[ElevenLabs] Connected! Conversation ID:', convId);
           setConversationId(convId);
